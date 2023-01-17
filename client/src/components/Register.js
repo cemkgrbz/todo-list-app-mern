@@ -29,7 +29,7 @@ function Register() {
 
     return (
 
-<div className="bg-slate-400 h-screen overflow-hidden flex items-center justify-center">
+<div className="bg-[#4b71b2] h-screen overflow-hidden flex items-center justify-center log">
 <div className="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl rounded-lg">
   <div className="bg-gray-800 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-6">
     <GiArchiveRegister className="text-white text-[2rem]"/>

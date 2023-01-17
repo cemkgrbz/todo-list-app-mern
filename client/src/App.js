@@ -1,99 +1,67 @@
-import { useState, useEffect, useContext } from "react" 
+import { useState, useContext } from "react" 
 import axios from 'axios'
 import {AppContext} from './components/Context'
 
 
-// const API_BASE = "http://localhost:3001"
-
 function App() {
 
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
   const [newTodo, setNewTodo] = useState("")
 
   const {state, dispatchState} = useContext(AppContext)
+  
 
-  useEffect(() => {
+  const completeTodo = async (_id) => {
 
-    async function getData() {
+    const response = await axios.post('/users/todo/complete', {
+        user: state.user._id,
+        _id
+    })
+    console.log("🚀 ~ handleDelete ~ response", response)
 
-        const response = await axios.get('/todos/list')
-        console.log("response", response)
-
+    if (response.data.success) {
         dispatchState({
-            type: 'getTodos',
-            payload: response.data.todos
+            type: 'completeTodo',
+            payload: response.data.user
         })
     }
+}
 
-    getData()
+const uncompleteTodo = async (_id) => {
 
-}, [])
-  
-  // console.log("🚀 ~ file: App.js:8 ~ App ~ todos", todos)
-  // const GetTodos = () => {
+  const response = await axios.post('/users/todo/uncomplete', {
+      user: state.user._id,
+      _id
+  })
+  console.log("🚀 ~ handleDelete ~ response", response)
 
-  //   fetch(API_BASE + "/todos")
-  //     .then(res => res.json())
-  //     .then(data => setTodos(data))
-  //     .catch(err => console.error("Error: ", err))
-  // }
-
-
-  const completeTodo = async (id) => {
-
-    const data = await axios.get('todos/complete')
-    console.log("🚀 ~ file: App.js:46 ~ completeTodo ~ data", data)
-    // const data = await fetch(API_BASE + "/todo/complete/" + id)
-    //   .then(res => res.json())
-
-    setTodos(todos => todos.map(todo=> {
-      if (todo._id === data._id) {
-        todo.complete = data.complete
-      }
-
-      return todo;
-    }))
+  if (response.data.success) {
+      dispatchState({
+          type: 'uncompleteTodo',
+          payload: response.data.user
+      })
   }
+}
 
   const deleteTodo = async (id) => {
 
-    const response = await axios.delete('todos/delete' + id)
+    const response = await axios.delete('users/todo/delete', {data: {user: state.user._id, id}})
     console.log("🚀 ~ file: App.js:62 ~ deleteTodo ~ response", response)
     
     if (response.data.success) {
 
       dispatchState({
           type: 'removeTodo',
-          payload: id
+          payload: response.data.updatedUser
       })
 
-  } else {
-      if (response.data.errorId === 1) {
-          alert('Todo not found')
-      }
-  }
-    // const data = await fetch(API_BASE + "/todo/delete/" + id, {
-    //   method: "DELETE"
-    // }).then(res => res.json())
-
-    // setTodos(todos => todos.filter(todo => todo._id !== data._id))
-
-  }
+  }}
 
   const addTodo = async () => {
 
-      // const formdata = new FormData()
   
-      // formdata.set('todo', todos.text)
-    
-      // const config = {
-      //   Headers: {
-      //     'content-type': 'multipart/form-data'
-      //   }
-      // }
-  
-      const response = await axios.post('/todos/add', {newTodo})
+      const response = await axios.post('/users/todo/add', {user: state.user._id, text: newTodo})
       console.log("🚀 ~ handleSave ~ response", response)
   
   
@@ -101,10 +69,10 @@ function App() {
       
           dispatchState({
               type: 'addTodo',
-              payload: response.data.todo.text
+              payload: response.data.user
           })
 
-          setTodos([...todos, response])
+          // setTodos([...todos, response])
           setPopupActive(false)
           setNewTodo("")
       
@@ -112,40 +80,27 @@ function App() {
     }
   
 
-    // const data = await axios.post('todos/add')
-
-    // const data = await fetch(API_BASE + "/todo/new", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     text: newTodo
-    //   }) 
-    // }).then(res => res.json())
-    // console.log("🚀 ~ file: App.js:61 ~ addTodo ~ data", data)
-
-    // setTodos([...todos, data])
-    // setPopupActive(false)
-    // setNewTodo("")
-  // }
-
+  console.log("State - ", state)
   return (
     <div className="App">
       
-      <h1>Welcome to the List</h1>
+      <h1 className="text-center mb-[5rem]">Welcome {state.user.username}!!!</h1>
 
       <div className="todos">
         {
-          todos.length === 0 ? <h3>Please add a task</h3> : <h3>Your tasks</h3>
+          state?.user?.todos?.length === 0 ? <h3 className="text-center text font-black text-white bg-[#4b71b2] w-fit p-3 rounded-xl m-auto">Please add a task</h3> : <h4 className="font-black">Your tasks</h4>
         }
 
         {
-          todos.map(todo => (
-            <div className={"todo " + (todo.complete ? "is-complete" : "")} key={todo._id} onClick={() => completeTodo(todo._id)}>
+          state?.user?.todos?.map(todo => (
+            <div className={"todo " + (todo.complete ? "is-complete" : "")} key={todo._id} 
+            onClick={todo.complete === false ? () => completeTodo(todo._id) : () => uncompleteTodo(todo._id)}
+            >
               <div className="checkbox"></div>
               <div className="text">{todo.text}</div>
-              <div className="delete-todo" onClick={() => deleteTodo(todo._id)}>x</div>
+              <div className="delete-todo" 
+              onClick={() => deleteTodo(todo._id)}
+              >x</div>
             </div>
 
           ))

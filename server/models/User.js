@@ -16,7 +16,16 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    todos: []
+    todos: [
+        {text: {
+            type: String,
+            required: true
+        },
+	    complete: {
+            type: Boolean,
+            default: false
+        }
+	}]
 }, {timeStamps: true});
 
 const Todo = mongoose.model("User", userSchema);

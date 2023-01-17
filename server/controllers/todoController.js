@@ -1,4 +1,5 @@
 const Todo = require('../models/Todo');
+const User = require('../models/User')
 
 
 module.exports.list = async (req, res) => {
@@ -20,14 +21,15 @@ module.exports.list = async (req, res) => {
 module.exports.add = async (req, res) => {
 
     try {
-
-        const todo = new Todo({
-            text: req.body.newTodo
-        })
+        console.log('Add', req.body)
+        const user = await User.findByIdAndUpdate(
+            {_id: req.body.user},
+            {$push: {todos: {text: req.body.text}}},
+            {new: true}
+        )
+        console.log("🚀 ~ file: todoController.js:30 ~ module.exports.add= ~ user", user)
     
-        todo.save();
-    
-        res.json({success: true, todo});
+        res.json({success: true, user});
 
     } catch (error) {
         console.log("add error", error.message)
@@ -41,9 +43,24 @@ module.exports.delete = async (req, res) => {
 
     try {
 
-        const result = await Todo.findByIdAndDelete(req.params.id)
+        console.log("delete - ", req.body)
 
-	    res.json(result)
+        const user = await User.findById(req.body.user)
+        console.log("🚀 ~ file: todoController.js:47 ~ module.exports.delete ~ user", user)
+
+        const deletedTodo = user.todos.filter(item => item._id.toString() !== req.body.id)
+        console.log("🚀 ~ file: todoController.js:50 ~ module.exports.delete ~ deletedTodo", deletedTodo)
+
+        const updatedUser = await User.findByIdAndUpdate(
+
+            {_id: req.body.user},
+            {todos: deletedTodo},
+            {new: true}
+        )
+        console.log("🚀 ~ file: todoController.js:58 ~ module.exports.delete ~ updatedUser", updatedUser)
+
+
+        res.send({success: true, updatedUser})
 
     } catch (error) {
         console.log("delete error", error.message)
@@ -56,13 +73,57 @@ module.exports.delete = async (req, res) => {
 module.exports.complete = async (req, res) => {
 
     try {
-        const todo = await Todo.findById(req.params.id)
 
-	    todo.complete = !todo.complete
+        console.log("complete", req.body)
+        const user = await User.findByIdAndUpdate(
 
-	    todo.save()
+            {
+                _id: req.body.user,
 
-	    res.json(todo)
+            },
+            {
+                $set : {
+                    'todos.$[elem].complete': true
+                }
+            },
+            {
+                arrayFilters: [{'elem._id': req.body._id}],
+                new: true
+            }
+        )
+	    res.json({success: true, user})
+
+    } catch (error) {
+
+        console.log("complete error", error.message)
+
+        res.send({success: false, error: error.message})
+    }
+   
+}
+
+module.exports.uncomplete = async (req, res) => {
+
+    try {
+
+        console.log("uncomplete", req.body)
+        const user = await User.findByIdAndUpdate(
+
+            {
+                _id: req.body.user,
+
+            },
+            {
+                $set : {
+                    'todos.$[elem].complete': false
+                }
+            },
+            {
+                arrayFilters: [{'elem._id': req.body._id}],
+                new: true
+            }
+        )
+	    res.json({success: true, user})
 
     } catch (error) {
 

@@ -15,43 +15,40 @@ export default function ContextProvider({children}) {
                 user: {...action.payload}
             }
 
-            case 'loadUsers':
-
-            return {
-                ...state,
-                users: [...action.payload]
-            }
-
             case 'logout':
 
                 return {
-                    user: {},
-                    todos: []
+                    user: {todos: []}
                 }
 
-
-            case 'getTodos':
-
-                return {
-                    ...state,
-                    todos: [...action.payload]
-                }
 
             case 'addTodo':
                 return {
                     ...state,
-                    todos: [...state.todos, action.payload]
+                    user: action.payload
                 }
 
             case 'removeTodo':
 
-                const oldList = [ ...state.todos.filter(item => item._id !== action.payload)]
-    
                 return {
                     ...state,
-                    todos: [...oldList]
-    
+                    user: action.payload
                 }
+            
+            case 'completeTodo':
+
+                return {
+                    ...state,
+                    user: action.payload
+                    }
+
+            case 'uncompleteTodo':
+
+                return {
+                    ...state,
+                    user: action.payload
+                    }
+                
 
             default:
                 
@@ -60,8 +57,7 @@ export default function ContextProvider({children}) {
     }
 
     const [state, dispatchState] = useReducer(reducer, {
-        user: {},
-        todos: []
+        user: {todos: []}
     })
 
     return <AppContext.Provider value={{state, dispatchState}}>

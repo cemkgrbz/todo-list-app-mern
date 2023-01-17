@@ -16,11 +16,32 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: "Fira Sans", sans-serif;
+
+
+
 }
 
 body {
-	background-color: #4b71b2;
+	background-color: #981418;
 	/* color: #EEE; */
+	background-image: url(./media/pattern.png);
+	/* background-repeat: repeat; */
+	background-size: 120rem ;   
+	background-position-x: center; 
+	background-position-y: center; 
+	
+
+
+}
+
+.log {
+
+	background-image: url(./media/pattern.png);
+	background-repeat: repeat;
+	background-size: 120rem ;   
+	background-position-x: center; 
+	background-position-y: 30%; 
+
 }
 
 .App {
@@ -37,9 +58,9 @@ h1 {
 
 h4 {
 	font-size: 18px;
-  margin: auto;
-  width: 60%;
-	color: #61759b;
+  	margin: auto;
+  	width: 60%;
+	color: #ffffff;
 	text-transform: uppercase;
 	font-weight: 400;
 	margin-bottom: 16px;
@@ -74,12 +95,15 @@ h4 {
 }
 
 .todo.is-complete .checkbox {
+	
 	background-color: #D81E5B;
-	background-image: linear-gradient(to bottom, #c1e2fd, #c45c5c);
+	background-image: linear-gradient(to bottom, #91bdffcf, #d41111);
+ 
 }
 
 .todo .text {
 	font-size: 20px;
+	color: #EEE;
 }
 
 .todo.is-complete .text {
@@ -116,8 +140,7 @@ h4 {
 	font-size: 28px;
 	font-weight: 900;
 	color: #EEE;
-	background-color: #D81E5B;
-	background-image: linear-gradient(to bottom right, #c1e2fd, #c45c5c);
+	background-color: #202B3E;
 	cursor: pointer;
 }
 
