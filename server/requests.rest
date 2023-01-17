@@ -1,0 +1,46 @@
+GET http://localhost:3001/todos
+
+###
+
+POST http://localhost:3001/todo/new
+Content-Type: application/json
+
+{
+    "text": "Order beer"
+}
+
+###
+
+DELETE http://localhost:3001/todo/delete/63c00c805598e1f7d81d587f
+
+###
+
+PUT http://localhost:3001/todo/complete/63bd849ead0d698b641f9fc6
+
+###
+
+POST http://localhost:3001/register
+Content-Type: application/json
+
+{
+    "username": "004",
+    "email": "004",
+    "password": "123"
+
+}
+
+###
+
+POST http://localhost:3001/register
+Content-Type: application/json 
+
+{
+    "username": "004",
+    "email": "004",
+    "password": "123"
+
+}
+
+###
+
+GET http://localhost:3001/userlist

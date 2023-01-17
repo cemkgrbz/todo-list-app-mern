@@ -1,12 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
+/* :root {
 	--primary: #D81E5B;
 	--secondary: #8A4EFC;
 	--light: #EEE;
 	--light-alt: #61759b;
 	--dark: #131A26;
 	--dark-alt: #202B3E;
-}
+} */
 
 * {
 	margin: 0;
@@ -16,8 +19,8 @@
 }
 
 body {
-	background-color: #202B3E;
-	color: #EEE;
+	background-color: #4b71b2;
+	/* color: #EEE; */
 }
 
 .App {
@@ -28,6 +31,8 @@ h1 {
 	font-size: 40px;
 	font-weight: 700;
 	margin-bottom: 32px;
+	color: #EEE;
+
 }
 
 h4 {
@@ -70,7 +75,7 @@ h4 {
 
 .todo.is-complete .checkbox {
 	background-color: #D81E5B;
-	background-image: linear-gradient(to bottom, #D81E5B, #8A4EFC);
+	background-image: linear-gradient(to bottom, #c1e2fd, #c45c5c);
 }
 
 .todo .text {
@@ -112,7 +117,7 @@ h4 {
 	font-weight: 900;
 	color: #EEE;
 	background-color: #D81E5B;
-	background-image: linear-gradient(to bottom right, #D81E5B, #8A4EFC);
+	background-image: linear-gradient(to bottom right, #c1e2fd, #c45c5c);
 	cursor: pointer;
 }
 
@@ -142,7 +147,7 @@ h4 {
 }
 
 .popup h3 {
-	color: var(--dark);
+	color: #131A26;
 	margin-bottom: 16px;
 	font-weight: 400;
 	text-transform: uppercase;
@@ -163,7 +168,7 @@ h4 {
 .button {
 	padding: 16px 32px;
 	border-radius: 999px;
-	background-image: linear-gradient(to right,  #D81E5B, #8A4EFC);
+	background-image: linear-gradient(to right,  #c1e2fd, #c45c5c);
 	display: inline-block;
 	font-weight: 700;
 	text-transform: uppercase;

@@ -1,0 +1,24 @@
+{
+  "name": "todo-list-mern",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon ./server/server.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server \" \"npm run client \" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cemkgrbz/todo-list-app-mern.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cemkgrbz/todo-list-app-mern/issues"
+  },
+  "homepage": "https://github.com/cemkgrbz/todo-list-app-mern#readme",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
