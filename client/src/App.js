@@ -88,7 +88,7 @@ const uncompleteTodo = async (_id) => {
 
       <div className="todos">
         {
-          state?.user?.todos?.length === 0 ? <h3 className="text-center text font-black text-white bg-[#4b71b2] w-fit p-3 rounded-xl m-auto">Please add a task</h3> : <h4 className="font-black">Your tasks</h4>
+          state?.user?.todos?.length === 0 ? <h3 className="text-center text font-black text-white bg-[#4b71b2] w-fit p-3 rounded-xl m-auto bg-opacity-50">Please add a task</h3> : <h4 className="font-black">Your tasks</h4>
         }
 
         {

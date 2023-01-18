@@ -42,8 +42,8 @@ function Login() {
 
         
         <div className="bg-[#4b71b2] h-screen overflow-hidden flex items-center justify-center flex-col log">
-          <div className='text-red-900 text-center text-[2.5rem] font-bold'>Welcome to the List</div>
-          <div className='text-white p-3 rounded-lg text-[1rem] font-bold mb-[3rem]'>Please login or register</div>
+          <div className='text-white  text-center text-[2.5rem] font-bold drop-shadow-[1px_1px_5px_rgb(0,0,0)]'>Welcome to the List</div>
+          <div className='text-white p-3 rounded-lg text-[1rem] font-bold mb-[3rem] drop-shadow-[1px_1px_5px_rgb(0,0,0)]'>Please login or register</div>
         <div className="bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl rounded-lg">
           <div className="bg-gray-800 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-2 md:p-6">
             <FaUserAlt className='text-white'/>
