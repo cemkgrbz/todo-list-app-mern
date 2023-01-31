@@ -1,5 +1,5 @@
-# todo-list-app-mern
+# ToDo List
 
 ToDo List App - MERN Stack Exercise
 
-Live: https://todoslist.herokuapp.com/
+## Live: https://todoslist.herokuapp.com/
